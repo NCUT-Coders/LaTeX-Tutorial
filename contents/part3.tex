@@ -1,0 +1,47 @@
+% 正文第三部分
+%% 依赖设置组：science_general_config
+%% 需要assets：无
+
+\part{\LaTeX 常用功能}
+
+\section{行和章节层次}
+
+\subsection{基本操作}
+
+很容易发现，在源码下换行后，编译出的pdf文件对应位置往往并没有还行（这就是为什么本文源码有那么多空行）。\LaTeX 下最常见的两种换行方式分别是使用换行符号\textlb，以及额外空一行。这两种方式都可以用于换行。本文中多数地方使用源码中空行来换行，但细心的读者也许已经发现，本文源码中document环境的title就用了\textlb 来换行。
+
+\begin{lstlisting}[style = latex_texworks, numbers = none]
+\title{\bf \LaTeX 简明教程 \\ A Brief Tutorial on \LaTeX}
+\end{lstlisting}
+
+使用\textlb 换行还有一个技巧，如果附带一对方括号，方括号内部写入一个长度，那么当前换行将会产生额外的空白。本文附录\ref{content::FAQ}中的行间额外空白就是通过\textlb[5mm]实现的。
+
+此外，也有时使用\addbs{newline}进行换行。
+
+\LaTeX 使用的层次结构可以十分多样。不同文档类型（以\addbs{documentclass}声明类型）常见的搭配也不同，比如article类型经常搭配part、section等结构类型而不是chapter，但无论是哪一个，其本质是大同小异的。\LaTeX 下任何段落层次结构都以类似方式声明，即“\addbs{结构类型名称}\{标题\}”的形式。
+
+常见的结构类型有part、section、subsection、subsubsection。使用\addbs{section}\{标题\}就可以生成一个以“标题”为标题的小节。一般而言，标题会附带有一个编号。
+
+\subsection{改变标题格式\label{content::title_format_tutorial}}
+
+本文介绍的改变标题格式的方法以titlesec的\addbs{titleformat}为例，这是最常见的方案。
+
+考虑到引用位置的需求，各级标题中最重要的部分就是编号。这里我们先明确计数器的概念。\LaTeX 中计数器一般指的是part、section等默认计数器（你也可以生成自己的计数器，但本文不讨论这点），它们表示的就是对应结构的当前计数值。例如，本小节当前的计数器（subsection）值为\ref{content::title_format_tutorial}。你也可以自行修改计数器的值，但本文也不讨论这点。
+
+\LaTeX 下，很多计数器具有一个以the为前缀的控制序列，用于控制编号输出样式。例如，\addbs{thepart}表示当前part序号。本小节的位置可以用\addbs{thesubsection}表示\footnote{正在对照源码的读者可能注意到了上文使用了\addbs{ref}。\addbs{ref}是用于全文引用某位置的语法，但是\addbs{thesubsection}永远只能指示当前位置。这就是二者的区别。}。
+
+\begin{tabular}{|c|c|}
+\hline
+宏 & 在该文档本位置的值 \\ \hline
+\addbs{thepart} & \thepart \\ \hline
+\addbs{thesection} & \thesection \\ \hline
+\addbs{thesubsection} & \thesubsection \\ \hline
+\end{tabular}
+
+这里特别强调一点：计数器名称不带反斜杠（\textbackslash），但是对应的宏是有的。\LaTeX 的一切宏都以反斜杠开头以标识出它是个宏。除了特定宏指令参数外，part都不会被当作计数器名称，而是普通的纯文本（plain text）。
+
+计时器对应宏的显示样式可以用\addbs{renewcommand}\{样式控制序列\}来改变。如果你希望使用罗马数字作为section序号，那么可以这样做：
+
+\begin{lstlisting}[style = latex_texworks, numbers = none]
+\renewcommand}{\Roman{section}}
+\end{lstlisting}

@@ -1,0 +1,23 @@
+% LaTeX代码高亮，有一点bug不过基本不影响使用
+
+\lstdefinestyle{LaTeX_TeXworks}{
+	language = [LaTeX]TeX,
+	morekeywords = {includegraphics, subcaptionbox, multirow},
+	captionpos = b,
+	tabsize = 4,
+	breaklines = true,
+	showspaces = false,
+	showtabs = false,
+	frame = none,
+	backgroundcolor = \color{bgcolor_gray},
+	basicstyle = \CourierNew \SimSun,
+	keywordstyle = \color{blue},
+	commentstyle = \color{red},
+	numbers = left,
+	numberstyle = \small,
+	stepnumber = 1,
+	firstnumber = 1,
+	extendedchars = true,
+	inputencoding = utf8,
+	escapeinside={(@*}{*@)}
+}

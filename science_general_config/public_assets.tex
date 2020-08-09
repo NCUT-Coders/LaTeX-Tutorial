@@ -1,0 +1,27 @@
+% 用户宏定义内容
+\newcommand\addbs[1]{\textbackslash #1} %% bs表示backslash，反斜杠
+\newcommand\textlb{\textbackslash \textbackslash} %% lb表示line break，换行
+\newcommand\bigorglogo{\includegraphics[height = 3cm, width = 3cm]{\configGroup/assets/logo.png}}
+\newcommand\smallorglogo{\includegraphics[height = 8mm, width = 8mm]{\configGroup/assets/logo.png}}
+%% org表示organization，组织
+\newcommand\pdfLaTeX{pdf\LaTeX}
+\newcommand\MiKTeX{MiK\TeX}
+\newcommand\TikZ{Ti$k$Z}
+\newcommand\licenseName{CC BY-NC-SA 4.0}
+
+% 页眉页脚设置
+\lhead{\LaTeX 中文简明教程}
+\chead{}
+\rhead{编程爱好者协会 \smallorglogo}
+\cfoot{\thepage / \pageref*{LastPage}}
+\rfoot{}
+\lfoot{}
+
+% 颜色设定
+%% Tip: 色彩在[0, 1]区间 (\textcolor)
+%%      或[0, 100] (\color)
+%%      RGB实现:
+%%      \color{green!100!red!100!blue!100}
+%%      或 \textcolor[rgb]{1,1,1}
+\definecolor{bgcolor_gray}{rgb}{0.9, 0.9, 0.9}
+\definecolor{deep_green}{rgb}{0, 0.5, 0}

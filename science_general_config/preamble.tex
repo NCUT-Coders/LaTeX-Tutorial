@@ -1,0 +1,152 @@
+% 文档类型
+\documentclass[a4paper]{article}
+
+% 包引用
+\usepackage{amsthm}
+\usepackage{ctex}
+\usepackage{ifthen}
+\usepackage{titlesec}
+\usepackage{titletoc}
+\usepackage{SIunits}
+\usepackage{tikz}
+\usepackage{extarrows}
+\usepackage{indentfirst}
+\usepackage{geometry}
+\usepackage{multirow}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{layout}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{algorithm2e}
+\usepackage{dirtree}
+\usepackage{menukeys}
+\usepackage{fontspec}
+\usepackage[T3, OT2, T1]{fontenc}
+\usepackage[noenc]{tipa}
+\usepackage{metalogo}
+\usepackage[colorlinks, hyperfootnotes = false]{hyperref}
+\usepackage{textgreek}
+\usepackage{chemfig}
+\usepackage[version = 4]{mhchem}
+\usepackage{array}
+\usepackage{float}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+% 页面设置
+\footskip = 10pt
+\pagestyle{fancy}
+\setlength{\parindent}{2em}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\headwidth}{16cm}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\interfootnotelinepenalty=10000 % 不允许脚注分页
+
+% 字体
+\setCJKfamilyfont{SimSun}{宋体}
+\setCJKfamilyfont{KaiTi}{楷体}
+\setCJKfamilyfont{SimHei}{黑体}
+\newcommand\SimSun{\CJKfamily{SimSun}}
+\newcommand\KaiTi{\CJKfamily{KaiTi}}
+\newcommand\SimHei{\CJKfamily{SimHei}}
+\newcommand\ComputerModern{\fontfamily{Computer Modern}}
+\newcommand\CourierNew{\fontfamily{Courier New}}
+\newcommand\resetfont{\SimSun \ComputerModern}
+%% Computer Modern是默认字体
+
+% 定义定宽表格格式
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+% 样式控制
+%% 编号跟随
+\numberwithin{section}{part}
+\numberwithin{footnote}{part}
+\numberwithin{table}{part}
+\numberwithin{figure}{part}
+\numberwithin{algocf}{part}
+%% 编号样式和内容
+\renewcommand{\thealgocf}{\arabic{part}.\arabic{algocf}}
+\renewcommand{\thefootnote}{\arabic{footnote}}
+\renewcommand{\thepart}{\Roman{part}}
+\renewcommand{\thesection}{\arabic{part}.\arabic{section}}
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+\renewcommand{\thesubsubsection}{\thesubsection.\arabic{subsubsection}}
+\renewcommand{\thefigure}{\arabic{part}.\arabic{figure}}
+\renewcommand{\thesubfigure}{\alph{subfigure}}
+\renewcommand{\thetable}{\arabic{part}.\arabic{table}}
+\renewcommand{\thesubtable}{\alph{subtable}}
+%% 显示样式和内容
+\titleformat{\part}{\Large \SimHei \ComputerModern}{第 \thepart 部分}{1em}{}
+\titleformat{\section}{\Large \SimHei \ComputerModern}{\thesection.}{1em}{}
+\titleformat{\subsection}{\large \SimHei \ComputerModern}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}{\SimHei \ComputerModern}{\thesubsubsection.}{1em}{}
+\renewcommand{\proofname}{\bf \SimHei 证明}
+\renewcommand{\contentsname}{\bf \SimHei 目录}
+\renewcommand{\lstlistingname}{\SimHei 代码}
+\renewcommand{\tablename}{\SimHei 表}
+\renewcommand{\figurename}{\SimHei 图}
+\renewcommand{\listalgorithmcfname}{\SimHei 算法列表}
+\renewcommand{\algorithmcfname}{\SimHei 算法}
+%% 数学环境显示样式
+\newtheoremstyle{Chinese_mathenv}{3pt}{3pt}{\KaiTi}{}{\SimHei \ComputerModern}{ }{.5em}{}
+\theoremstyle{Chinese_mathenv}
+\newtheorem{axiom}{公理}[section]
+\newtheorem{theorem}{定理}[section]
+\newtheorem{corollary}{推论}[axiom]
+\newtheorem{definition}{定义}[section]
+\newtheorem{lemma}{引理}[theorem]
+\newtheorem*{caution}{注意}
+\newtheorem*{solve}{解}
+\newtheorem*{solution}{方案}
+%% FAQ显示样式
+\newtheorem*{FAQQ}{问}
+\newtheorem*{FAQA}{答}
+%% 目录格式控制
+\titlecontents{part}[0em]{\SimHei \ComputerModern \vspace{5pt}}{\contentslabel{2em}}{}{~\titlerule*[0.6pc]{.}~\contentspage}
+\titlecontents{section}[2em]{\SimHei \ComputerModern}{\contentslabel{2em}}{}{~\titlerule*[0.6pc]{.}~\contentspage}
+\titlecontents{subsection}[3em]{\SimHei \ComputerModern}{\contentslabel{3em}}{}{~\titlerule*[0.6pc]{.}~\contentspage}
+\titlecontents{subsubsection}[4em]{\SimHei \ComputerModern}{\contentslabel{4em}}{}{~\titlerule*[0.6pc]{.}~\contentspage}
+%% algorithm2e包额外样式控制
+\SetKwInput{KwIn}{\SimHei 输入}
+\SetKwInput{KwOut}{\SimHei 输出}
+\SetKwInput{KwData}{\SimHei 参数}
+\SetKwInput{KwResult}{\SimHei 返回}
+\SetKwProg{Fn}{Function}{\\ \textbf{begin}}{\textbf{end}}
+\LinesNumbered
+
+% circuitikz芯片绘制辅助
+\makeatletter
+\newlength{\tempx}
+\newlength{\tempy}
+% circuitikz样式设置
+% IC绘制解决方案来自https://tex.stackovernet.com/cn/q/92937
+\ctikzset{multipoles/.is family}
+\ctikzset{multipoles/pin spacing/.initial = 5mm}
+\ctikzset{multipoles/gate spacing/.initial = 1cm}
+\pgfkeys{/tikz/pin spacing/.initial = 0mm}
+\pgfkeys{/tikz/pin spacing/.default = 0mm}
+\newlength{\IClen}
+\newcommand\pinLabelSize{\ifdim\IClen<3.5mm \tiny \else \scriptsize \fi}
+\newcommand{\compassAnchor}{
+	\anchor{north east}{\northeast}
+	\anchor{south west}{\southwest}
+	\anchor{north}{\pgfextracty{\pgf@circ@res@up}{\northeast}\pgfpoint{0cm}{\pgf@circ@res@up}}
+	\anchor{north west}{\pgfextracty{\pgf@circ@res@up}{\northeast}\pgfextractx{\pgf@circ@res@left}{\southwest}\pgfpoint{\pgf@circ@res@left}{\pgf@circ@res@up}}
+	\anchor{west}{\pgfextractx{\pgf@circ@res@left}{\southwest}\pgfpoint{\pgf@circ@res@left}{0cm}} %% 原文有个typo
+	\anchor{south}{\pgfextracty{\pgf@circ@res@down}{\southwest}\pgfpoint{0cm}{\pgf@circ@res@down}}
+	\anchor{south east}{\pgfextracty{\pgf@circ@res@down}{\southwest}\pgfextractx{\pgf@circ@res@right}{\northeast}\pgfpoint{\pgf@circ@res@right}{\pgf@circ@res@down}}
+	\anchor{east}{\pgfextractx{\pgf@circ@res@right}{\northeast}\pgfpoint{\pgf@circ@res@right}{0cm}}
+} %% 'newcommand'(compassAnchor)块结束
+\makeatother
+
+% 代码片样式设置
+\AtBeginDocument{
+	\numberwithin{lstlisting}{part}
+	\renewcommand{\thelstlisting}{\arabic{part}.\arabic{lstlisting}}
+}

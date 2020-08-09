@@ -1,0 +1,41 @@
+% 请尽量使用XeLaTeX编译
+
+% 使用理工学类设置（很显然是自定义的设置组，LaTeX并没有原生设置组这种概念）
+\def\configGroup{science_general_config}
+\include{\configGroup/main}
+
+% 导入tex资源
+\include{contents/assets/circuitikz/and4b}
+\include{contents/assets/listings/LaTeX_TeXworks}
+\include{contents/assets/listings/GNU_Cpp20_DevCpp}
+
+% includeonly用于模块化调试。使用时不要忘记文档体用户设置，即\configGroup/document_user
+%\includeonly{\configGroup/document_user, contents/part2_get_started}
+%\includeonly{}
+
+% 文档体
+\begin{document}
+	
+	% 导入封面
+	\include{contents/cover}
+	
+	% 目录
+	\tableofcontents
+	\clearpage
+	
+	%正文
+	\include{contents/part1}
+	\resetfont
+	\include{contents/part2}
+	\resetfont
+	\include{contents/part3}
+	\resetfont
+	
+	
+	%备注：引用标签，特殊符号，目录，居中，域，字体字号色彩，封面生成，页眉页脚，画表格，引用代码（中文问题，转义序列），化学箭头，物理单位，按键样式，画图，引用图片（含子题注），目录树，伪代码,SIUnits
+	% TODO：考虑字体更改
+	
+	% 附录
+	\include{contents/appendices}
+	
+\end {document}

@@ -1,0 +1,34 @@
+% 定义and4b（4脚与门）芯片
+\makeatletter
+\pgfdeclareshape{and4b}{
+	\anchor{center}{\pgfpointorigin}
+	\anchor{text}{\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+\savedmacro{\resize}{\setlength{\IClen}{\pgfkeysvalueof{/tikz/pin spacing}}\ifdim\IClen=0mm \setlength{\IClen}{\pgfkeysvalueof{/tikz/circuitikz/multipoles/pin spacing}} \fi}
+	\savedanchor\icpina{\pgfpoint{-1\IClen}{1.5\IClen}}\anchor{in1}{\icpina}
+	\savedanchor\icpinb{\pgfpoint{-1\IClen}{.5\IClen}}\anchor{in2}{\icpinb}
+	\savedanchor\icpinc{\pgfpoint{-1\IClen}{-.5\IClen}}\anchor{in3}{\icpinc}
+	\savedanchor\icpind{\pgfpoint{-1\IClen}{-1.5\IClen}}\anchor{in4}{\icpind}
+	\savedanchor\icpine{\pgfpoint{1\IClen}{0\IClen}}\anchor{out}{\icpine} %% 设置针脚
+	\savedanchor{\northeast}{\pgfpoint{1\IClen}{2\IClen}}
+	\savedanchor{\southwest}{\pgfpoint{-1\IClen}{-2\IClen}} %% 这两行设置矩形大小
+	\compassAnchor
+
+	\foregroundpath{
+		\pgfsetlinewidth{.1\IClen} %% 矩形线宽
+		\pgfpathrectanglecorners{\southwest}{\northeast}
+		\pgfusepath{draw}
+		%% 绘制半圆形定位孔
+		\pgfsetlinewidth{.06\IClen} %%% 半圆形定位孔线宽（定位孔用于指示针脚顺序，方便阅读说明）
+		\pgfextracty{\tempy}{\northeast} %%% temp定位上方
+		\pgfpathmoveto{\pgfpoint{-.2\IClen}{\tempy}} %%% 定位孔位置
+		\pgfpatharc{-180}{0}{.2\IClen} %%% 定位孔绘制参数
+		\pgfusepath{draw}
+		%% 绘制针脚标记
+		\pgftext[left, at = \icpina]{\pinLabelSize \,i1}
+		\pgftext[left, at = \icpinb]{\pinLabelSize \,i2}
+		\pgftext[left, at = \icpinc]{\pinLabelSize \,i3}
+		\pgftext[left, at = \icpind]{\pinLabelSize \,i4}
+		\pgftext[right, at = \icpine]{\pinLabelSize o\,}
+	} %% 'foregroundpath'块结束
+} %% 'pgfdeclareshape'(not4b)块结束
+\makeatother
