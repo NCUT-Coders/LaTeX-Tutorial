@@ -159,7 +159,7 @@ return 0;
 
 \renewcommand{\thefootnote}{\arabic{footnote}}
 
-\subsection{图表和图片宏包}
+\subsection{题注、图表和图片宏包}
 
 caption包和subcaption包用于题注。包含图片时，最常用的包是graphicx。multirow包用于进行单元格合并，\TikZ 和pgf用于绘制图样。制表时经常配合array包制定样式。特别地，circui\TikZ 包主要用于绘制电路图。
 
@@ -172,7 +172,7 @@ caption包和subcaption包用于题注。包含图片时，最常用的包是gra
 	\caption{两个logos}\label{figure::two_logos}
 \end{figure}
 
-这个例子中，\LaTeX 为这两张图片分别分配了题注，GNU的logo得到编号\ref*{figure::GNUlogo}，小企鹅Freedo\footnote{Freedo是\href{http://www.fsfla.org/ikiwiki/selibre/linux-libre/}{GNU Linux-libre}（一个操作系统内核）的吉祥物。值得一提的是，Linux最广为人知的吉祥物也是一只企鹅，名为Tux。然而，许多Linux发行版如今选择其他动物作为自身的吉祥物。}得到编号\ref*{figure::Freedo}。两张图还有共同题注，编号为\ref*{figure::two_logos}。Aur\'elio A. Heckert提供了图\ref*{figure::GNUlogo}，Rub\'en Rodr\'iguez P\'erez等人提供了图\ref*{figure::Freedo}\footnote{这张图是在\url{https://svgtopng.com/}进行了SVG格式到PNG格式的转码后得到的。}，这两张图都来自\href{https://www.gnu.org/graphics/graphics.html}{GNU画廊}\footnote{GNU是一个致力于发扬自由软件精神的组织，知名的GPL协议就来自于这个组织。作为最知名的开源支持者之一，GNU经常以相当直白的方式表达对专有软件的不满。包括CIA和亚马逊在内的组织和企业都被\href{https://www.gnu.org/gnu/gnu.html}{GNU操作系统官网}挂起来批评过。其他一些开源支持者，例如FFmpeg的开发者，还列出了一个“\href{https://github.com/FFmpeg/web/blob/master/src/shame}{耻辱柱}”，上面列出了未遵守开源协议的软件清单；许多大厂也没能逃过被钉上FFmpeg耻辱柱的命运。不仅如此，许多基本开源的软件（例如某些官方包管理服务器使用了专有软件的操作系统）因为被认为“不够开源”而被各类自由软件组织开除自由软件籍。}。
+这个例子中，\LaTeX 为这两张图片分别分配了题注，GNU的logo得到编号\ref*{figure::GNUlogo}，小企鹅Freedo\footnote{Freedo是\href{http://www.fsfla.org/ikiwiki/selibre/linux-libre/}{GNU Linux-libre}（一个操作系统内核）的吉祥物。值得一提的是，Linux最广为人知的吉祥物也是一只企鹅，名为Tux。然而，许多Linux发行版如今选择其他动物作为自身的吉祥物。}得到编号\ref*{figure::Freedo}。两张图还有共同题注，编号为\ref*{figure::two_logos}。Aur\'elio A. Heckert提供了图\ref*{figure::GNUlogo}，Rub\'en Rodr\'iguez P\'erez等人提供了图\ref*{figure::Freedo}\footnote{这张图是在\url{https://svgtopng.com/}进行了SVG格式到PNG格式的转码后得到的。}，这两张图都来自\href{https://www.gnu.org/graphics/graphics.html}{GNU画廊}\footnote{GNU是一个致力于发扬自由软件精神的组织，知名的GPL协议就来自于这个组织，旗下有一个\href{https://www.gnu.org/gnu/gnu.html}{GNU操作系统官网}并经常在官网上批评一些专有软件（微软和Adobe算是最经常被挂起来数落的）。其他一些开源支持者，例如FFmpeg的开发者，甚至列出了“\href{https://github.com/FFmpeg/web/blob/master/src/shame}{耻辱柱}”，主要是用于批评那些不遵守开源协议的开发者。}。
 
 % C是自定义样式，需要array包支持并用\newcolumntype定义
 \begin{table}[H]
