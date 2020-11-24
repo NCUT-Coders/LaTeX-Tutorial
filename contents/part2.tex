@@ -68,9 +68,9 @@ Hello \LaTeX!
 
 \subsection{理工科类宏包}
 
-\renewcommand{\thefootnote}{[\arabic{footnote}]} % 这行用于临时改变脚注格式，不改变的话会造成混淆
+amsthm包可以说是理工类论文最为不可或缺的包，它提供数学环境和符号。常见的还有extarrows包，它提供特殊的箭头，允许在长箭头上附加文字，可用于书写无机化学方程式或核物理反应方程式。chemfig和mhchem则常用于书写有机化学方程式，SIunits包提供标准物理学单位。对于计算机行业工作者，最常见的功能大概是引用代码，这经常由listings包来完成。还有一个常见的叫做algorithm2e的宏包，用于生成伪代码。
 
-主要是amsthm包，它提供数学环境和符号。常见的还有extarrows包，它提供特殊的箭头，允许在长箭头上附加文字，可用于书写无机化学方程式或核物理反应方程式。chemfig和mhchem则常用于书写有机化学方程式，SIunits包提供标准物理学单位。对于计算机行业工作者，最常见的功能大概是引用代码，这经常由listings包来完成。还有一个常见的叫做algorithm2e的宏包，用于生成伪代码。
+glossary、glossaries、nomencl这三个宏包都用于绘制术语表。
 
 下面以一些常见用途来举例子。
 
@@ -92,7 +92,7 @@ Hello \LaTeX!
 
 \chemfig[atom sep = 2.5em]{[:30]*6(=-(--[:60](=[:120]O)-[,,1,1]NH>:[:60]*4(-(<[:-60]H)*5(-S-(-[:-15])(-[:45])-(<(=[::60]O)-[::-60]O^{-})--)-N-(=O)-))=-=-)} \ce{K^+}
 
-这种物质叫做\href{https://www.chem960.com/cas/113984/}{青霉素钾}，常用于制药。选取这个结构式来绘制是因为它具有许多有机化学结构式中会出现的特性，例如环、环嵌套以及各种分支。说真的，如果您只是用\LaTeX 来做化学作业，那我建议读者直接导入插图，使用chemfig绘制如此简单的一个结构式就花费了我不少时间来查阅资料。
+这种物质叫做\href{https://www.chem960.com/cas/113984/}{青霉素钾}，常用于制药。选取这个结构式来绘制是因为它具有许多有机化学结构式中会出现的特性，例如环、环嵌套以及各种分支。\footnote{说真的，如果您只是用\LaTeX 来做化学作业，那我建议读者直接导入插图，使用chemfig绘制如此简单的一个结构式就花费了我数个小时来查阅资料。}
 
 \item algorithm2e生成的伪代码：
 
@@ -155,13 +155,21 @@ return 0;
 
 这个例子展示了如何在\LaTeX 下用pgfplots绘制一幅笛卡尔坐标系下的函数图象。除此之外，pgf包还有许多其他绘图功能。
 
-\end{enumerate}
+\item 引入术语表：
 
-\renewcommand{\thefootnote}{\arabic{footnote}}
+\nomenclature{符号}{二进制文件中，用于标记需要使用的标识符时用到的字符串。符号不能产生冲突，否则会引起链接错误。}
+\nomenclature{mangle}{C++等允许重载的语言中，为了给同名函数分配不同符号而产生的技术。}
+\nomenclature{ABI}{即引用程序二进制接口。不同平台、不同操作系统、不同编译器、不同运行时库的二进制接口都有可能不同。}
+
+这里指的术语表是附带定义信息的术语解释表，而不是类似《算法导论》附录那样带页码但没有附带定义的术语表。
+
+\printnomenclature
+
+\end{enumerate}
 
 \subsection{题注、图表和图片宏包}
 
-caption包和subcaption包用于题注。包含图片时，最常用的包是graphicx。multirow包用于进行单元格合并，\TikZ 和pgf用于绘制图样。制表时经常配合array包制定样式。特别地，circui\TikZ 包主要用于绘制电路图。
+caption包和subcaption包用于题注。包含图片时，最常用的包是graphicx。multirow包用于进行单元格合并，\TikZ 和pgf用于绘制图样。制表时经常配合array包制定样式。特别地，circui\TikZ 包主要用于绘制电路图。对于绘制流程图的需求，我们建议使用第三方软件graphviz，由graphviz生成图片后再利用graphicx宏包将其导入到文档中。
 
 \begin{figure}[H]
 	\centering
@@ -187,7 +195,7 @@ caption包和subcaption包用于题注。包含图片时，最常用的包是gra
 	\caption{一张随意画的\LaTeX 表格}
 \end{table}
 
-这个表格例子展示了\LaTeX 中复杂表格的绘制方法。\LaTeX 下的原生表格实际上做不到这点，但是我们有许多支持自定义表格的宏包。一般而言，Microsoft Office Word能做到的表格功能，\LaTeX 都有对应实现。常用的宏包有array和multicol、multirow等。
+这个表格例子展示了\LaTeX 中复杂表格的绘制方法。\LaTeX 下的原生表格实际上做不到这点，但是我们有许多支持自定义表格的宏包。一般而言，Microsoft Office Word能做到的表格功能，\LaTeX 都有对应实现。常用的宏包有array和multicol、multirow等。此外，有一个叫做longtable的宏包用于绘制可以自动分页的表格。
 
 \begin{figure}[H]
 \centering
@@ -234,9 +242,8 @@ titlesec、titletoc、geometry、fancyhdr等能为用户带来良好的排版体
 
 \subsection{杂项类宏包}
 
+除了上述与主要功能有关的宏包，\LaTeX 社区还提供了大量排版用的宏包。这些宏包有的仅仅实现了非常简单的功能，例如indentfirst主要只用于处理缩进。geometry主要用于设置页边距等几何参数。xcolor库用于设置文字色彩。hyperref用于设置超链接。
 
-
-
-下文中将会逐步讲解\LaTeX 内置功能和宏包中的常用功能。
+下文中将会逐步讲解\LaTeX 内置功能和部分宏包中的常用功能。
 
 \caution{有许多宏包中的工具需要编译两次才能得到正确结果。所以，遇到编译没出错但效果样式有问题的情况先别着急，试试再编译一次。极少数情况下，这也有助于修正编译错误。发布前也要编译两次再进行审阅。此外，有时候宏包包含顺序也会引发问题，出现宏包内部错误时不妨尝试调整宏包的包含顺序。}

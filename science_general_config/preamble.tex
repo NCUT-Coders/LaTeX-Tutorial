@@ -1,3 +1,6 @@
+% 启用makeindex调用
+\immediate\write18{makeindex \jobname.nlo -s nomencl.ist -o \jobname.nls}
+
 % 文档类型
 \documentclass[a4paper]{article}
 
@@ -36,6 +39,8 @@
 \usepackage{float}
 \usepackage{circuitikz}
 \usepackage{pgfplots}
+\usepackage{nomencl}
+\usepackage{glossaries}
 
 % 页面设置
 \footskip = 10pt
@@ -93,6 +98,7 @@
 \renewcommand{\figurename}{\SimHei 图}
 \renewcommand{\listalgorithmcfname}{\SimHei 算法列表}
 \renewcommand{\algorithmcfname}{\SimHei 算法}
+\renewcommand\nomname{术语表}
 %% 数学环境显示样式
 \newtheoremstyle{Chinese_mathenv}{3pt}{3pt}{\KaiTi}{}{\SimHei \ComputerModern}{ }{.5em}{}
 \theoremstyle{Chinese_mathenv}
@@ -150,3 +156,7 @@
 	\numberwithin{lstlisting}{part}
 	\renewcommand{\thelstlisting}{\arabic{part}.\arabic{lstlisting}}
 }
+
+% 告知IDE收集术语表
+\makenomenclature
+\makeglossaries
