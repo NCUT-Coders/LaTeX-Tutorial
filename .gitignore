@@ -1,4 +1,6 @@
 *.aux
+*.nlo
+*.nls
 *.log
 *.out
 *.gz
