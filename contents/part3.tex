@@ -54,9 +54,17 @@
 
 用于生成pdf的源码中总是有一个\addbs{begin}\{document\}和\addbs{end}\{document\}括起来的区域，这个部分被称为正文。正文前的部分则称为导言区，导言区内通常是不直接参与文本生成的控制序列，或者输出到全局、不能手动直接修改的内容，例如数学环境的定义和提示文字、页眉页脚等，\addbs{documentclass}也不直接参与文本生成，而只是指定正文的某些样式。
 
-\section{行、页和章节层次}
+\subsection{计数器}
 
-\subsection{换行和换页}
+\LaTeX 主要有两大类计数器：序号计数器和控制计数器，后者主要用于控制每页上浮动结构数量、目录深度等，前者则用于记录和显示序号。本文只阐述序号计数器。
+
+\LaTeX 中有各种各样的控制序列用于产生具有层次的结构，主要是各级标题；下文将会详细介绍多级标题。枚举列表、数学公式、脚注边注等也有自己的多级计数器。序号计数器的初始值通常为0，也可以用\addbs{setcounter}\{计数器名称\}\{数值\}在任何时候进行赋值（会将跟随其编号的低级计数器置零）。\addbs{stepcounter}\{计数器名称\}将指定计数器的值加上1。多数宏包提供的序号计数器会在通过关联的控制序列被引用后自动步进。因此，如果你将计数器初始化为1，那么有关序号会从2开始编号，而不是1。
+
+计数器一般附带一个控制序列，即“\addbs{the}计数器名称”，可以用于获得计数器的值。通过该方式获得的计数器的值可以是罗马数字、阿拉伯数字等，取决于它被如何设置。\addbs{value}\{计数器名称\}可以获取计数器值的阿拉伯数字形式，这个特点可以用来将序号输出格式设置为本来不接收计数器参数的数字格式化控制序列。
+
+可以通过\addbs{newcounter}\{计数器名称\}[计数器跟随项]设置新的计数器，但这不在本文探讨的范围内。
+
+\section{换行和换页}
 
 很容易发现，在源码下换行后，编译出的pdf文件对应位置往往并没有换行（这就是为什么本文源码有那么多空行）。\LaTeX 下最常见的两种换行方式分别是使用换行符号\textlb，以及额外空一行。这两种方式都可以用于换行。本文中多数地方使用源码中空行来换行，但细心的读者也许已经发现，本文源码中document环境的title就用了\textlb 来换行。
 
@@ -70,11 +78,83 @@
 
 换页通常使用\addbs{newpage}或\addbs{clearpage}来实现。不同之处在于，前者只是结束当前页，后者还会把图表等浮动结构输出。\addbs{include}（用于包含另一文件）也会先另起一页再输出被引用文件的内容。
 
-\subsection{层次结构}
+\section{通用格式控制}
+
+\LaTeX 允许控制文字的字体、字号等信息，其中多数功能需要配合宏包提供的附加功能，如表\ref*{table::font_control_sequences}所示。数学环境有独立的文字样式设定。
+
+\begin{center}
+	\begin{longtable}{C{2.5cm}C{2.5cm}C{4cm}C{2cm}C{1.5cm}}
+		\hline
+		宏 & 功能 & 参数 & 效果 & 来源 \\
+		\hline
+		\addbs{textup} & 无效果字体 & \{要显示的文字\} & \textup{text} & \LaTeX \\
+		\addbs{textit} & 意大利斜体字体 & \{要显示的文字\} & \textit{text} & \LaTeX \\
+		\addbs{textsl} & Slanted斜体字体 & \{要显示的文字\} & \textsl{text} & \LaTeX \\
+		\addbs{textsc} & 小写转大写后输出 & \{要显示的文字\} & \textsc{text} & \LaTeX \\
+		\addbs{textrm} & 罗马字体族 & \{要显示的文字\} & \textrm{text} & \LaTeX \\
+		\addbs{textsf} & 无衬字体 & \{要显示的文字\} & \textsf{text} & \LaTeX \\
+		\addbs{texttt} & 打印字体 & \{要显示的文字\} & \texttt{text} & \LaTeX \\
+		\addbs{newfontfamily} & 指定字体格式 & \{控制序列\}\{字体名\} & \newfontfamily{\fontcn}{Courier New} \fontcn N/A & fontspec \\
+		\addbs{setCJKfamilyfont} & 导入中日韩（CJK）字体，赋予一个别名 & \{别名\}\{字体名\} & \setCJKfamilyfont{kf}{楷体} N/A & ctex \\
+		\addbs{CJKfamily} & 设置中日韩（CJK）语言环境字体 & \{字体名称\} & \CJKfamily{kf} 文字 & ctex \\
+		\addbs{textbf} & 文字加粗 & \{要显示的文字\} & \textbf{text 文字} & \LaTeX \\
+		\addbs{underline} & 添加下划线 & \{要显示的文字\} & \underline{text 文字} & \LaTeX \\
+		\addbs{textcolor} & 彩色文字 & [色彩空间]\{浮点数色彩值\}\{要显示的文字\} & \textcolor[rgb]{1, 0, 0}{text 文字} & xcolor \\
+		\addbs{tiny} & 最小的预设字号 & N/A & \tiny text 文字 & \LaTeX \\
+		\addbs{footnotesize} & 脚注标准字号 & N/A & \footnotesize text 文字 & \LaTeX \\
+		\addbs{small} & 小号字体 & N/A & \small text 文字 & \LaTeX \\
+		\addbs{normalsize} & 默认字号 & N/A & \normalsize text 文字 & \LaTeX \\
+		\addbs{large} & 较大的字号 & N/A & \large test 文字 & \LaTeX \\
+		\addbs{Large} & 介于large与LARGE间的字号 & N/A & \Large text 文字 & \LaTeX \\
+		\addbs{LARGE} & 介于Large与huge间的字号 & N/A & \LARGE text 文字 & \LaTeX \\
+		\addbs{huge} & 介于LARGE与Huge间的字号 & N/A & \huge text 文字 & \LaTeX \\
+		\addbs{Huge} & 最大的预设字号 & N/A & \Huge text 文字 & \LaTeX \\
+		\addbs{zihao} & 中国人习惯的汉字字号 & \{字号\} & \zihao{3} 三号字 & \LaTeX \\
+		\hline
+		\caption{文本文字样式控制序列}\label{table::font_control_sequences}
+	\end{longtable}
+\end{center}
+
+补充说明几点：
+
+\begin{itemize}
+
+\item \addbs{newfontfamily}本身并不直接参与文本生成。不难注意到该控制序列的第一个参数也是一个控制序列，我们使用它即可将新控制序列绑定的字体应用到跟随其的文本。您可能已经注意到，表格中有一个“N/A”项的字体与其他的不太一样。
+
+\item 读者或许会发现，color包也能使用\addbs{textcolor}宏；本文中引用的许多包彼此之间具有包含关系，笔者只在正文中列出笔者最常用的包，其中有些并不是其原始来源。此外，对照源码不难发现：应用字体的控制序列只会影响其后附近的文字，而不能改变全局字体设置。实际上，如果把字体设置控制序列放在正文最外层，其造成的字体改变确实是全局的，直到重新指定另一个字体；这里不能影响全局是因为我们是在单元格环境内进行的设置，离开了这个单元格，单元格内的设置就会失效。
+
+\end{itemize}
+
+\caution{别忘了，多数字体需要先通过控制序列引入才能正常使用。此外，有些字体还需要fontenc包。}\resetfont
+
+\section{层次结构和标题}
 
 \LaTeX 使用的层次结构可以十分多样。不同文档类型常见的搭配也不同，比如article类型经常搭配part而不是chapter，但无论是哪一个，其本质是大同小异的。\LaTeX 下任何段落层次结构都以类似方式声明，即“\addbs{结构类型名称}\{标题\}”的形式。本文仅介绍article类型，其他很多类型大致相似，但一般都有一些特有控制序列。
 
-在article文档类型下，常见的结构类型有part、section、subsection、subsubsection。使用\addbs{section}\{标题\}就可以生成一个以“标题”为标题的小节。如果加一个星号即\addbs{section}*\{标题\}，则生成的小节不会带有编号，多数目录工具也会在目录中跳过不带编号的小节。其他层次也都有类似的特性。
+在article文档类型下，常见的结构类型有part、section、subsection、subsubsection。使用\addbs{section}\{标题\}就可以生成一个以“标题”为标题的小节。如果加一个星号即\addbs{section}*\{标题\}，则生成的小节不会带有编号，多数目录工具也会在目录中跳过不带编号的小节。其他层次也都有类似的特性。不同的是，part是在全局上独立编号的，section在每个part内独立编号，subsection跟随section编号，subsubsection跟随subsection编号。例如，part 2，section 3，subsection 4的编号默认会显示为3.4。本文由于采用了一些特殊设定，section跟随part编号并显示，所以会显示为2.3.4。
+
+\subsection{标题样式}
+
+\subsubsection{编号数字样式}
+
+\LaTeX 支持显示不同形式的数字，包括大小写字母、大小写罗马数字和阿拉伯数字。如果引用了ctex宏包，还可以显示汉语数字、大写汉语数字、天干地支等。
+
+设置编号数字的样式非常简单，只要使用\addbs{renewcommand}重新定义计数器宏即可。重定义宏的内容通常是\addbs{格式控制序列}\{计数器名称\}的形式，默认的、有关序号格式的控制序列有：
+
+\begin{figure}[h]
+	\centering
+	\begin{tabular}{cc}
+		\hline
+		宏 & 内容 \\
+		\hline
+		\addbs{alph} & 小写字母 \\
+		\addbs{Alph} & 大写字母 \\
+		\addbs{arabic} & 阿拉伯字母 \\
+		\addbs{roman} & 小写罗马数字 \\
+		\addbs{Roman} & 大写罗马数字 \\
+		\hline
+	\end{tabular}
+\end{figure}
 
 \subsection{改变标题格式\label{content::title_format_tutorial}}
 

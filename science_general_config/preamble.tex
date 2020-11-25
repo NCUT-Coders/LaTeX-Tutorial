@@ -41,6 +41,7 @@
 \usepackage{pgfplots}
 \usepackage{nomencl}
 \usepackage{glossaries}
+\usepackage{longtable}
 
 % 页面设置
 \footskip = 10pt
@@ -58,10 +59,10 @@
 \newcommand\SimSun{\CJKfamily{SimSun}}
 \newcommand\KaiTi{\CJKfamily{KaiTi}}
 \newcommand\SimHei{\CJKfamily{SimHei}}
-\newcommand\ComputerModern{\fontfamily{Computer Modern}}
-\newcommand\CourierNew{\fontfamily{Courier New}}
-\newcommand\resetfont{\SimSun \ComputerModern}
-%% Computer Modern是默认字体
+\newfontfamily{\ComputerModern}{Computer Modern}
+\newfontfamily{\CourierNew}{Courier New}
+\newfontfamily{\TimesNewRoman}{Times New Roman}
+\newcommand\resetfont{\SimSun \TimesNewRoman}
 
 % 定义定宽表格格式
 \newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
